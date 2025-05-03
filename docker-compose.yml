@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  steam-stream:
+    build: .
+    runtime: nvidia
+    environment:
+      - DISPLAY=:0
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    network_mode: bridge
+    shm_size: 2gb
+    ports:
+      - "5900:5900"  # optional for VNC fallback
+
