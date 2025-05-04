@@ -1,5 +1,3 @@
-- Install an RTMP server (optional) or use OBS’s Media Source.
-
 - In OBS:
   - Add Media Source
   - Uncheck "Local File"
