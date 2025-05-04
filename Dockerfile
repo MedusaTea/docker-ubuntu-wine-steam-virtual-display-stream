@@ -14,17 +14,17 @@ RUN apt update && apt install -y \
     lib32ncurses6 \
     && rm -rf /var/lib/apt/lists/*
 
-RUN wineboot --init
+#RUN wineboot --init
 
-RUN wget -O /tmp/steamsetup.exe https://cdn.cloudflare.steamstatic.com/client/installer/SteamSetup.exe && \
-    wine /tmp/steamsetup.exe
+#RUN wget -O /tmp/steamsetup.exe https://cdn.cloudflare.steamstatic.com/client/installer/SteamSetup.exe && \
+#    wine /tmp/steamsetup.exe
 
-ENV WINEPREFIX=/wineprefix
-RUN mkdir -p $WINEPREFIX && wineboot --init
+#ENV WINEPREFIX=/wineprefix
+#RUN mkdir -p $WINEPREFIX && wineboot --init
 
-RUN rm -f /tmp/steamsetup.exe
+#RUN rm -f /tmp/steamsetup.exe
 
-RUN winetricks -q steam
+#RUN winetricks -q steam
 
 COPY start.sh /start.sh
 RUN chmod +x /start.sh

@@ -9,6 +9,18 @@ echo "[INFO] Starting virtual X display..."
 Xvfb :1 -screen 0 1920x1080x24 &
 sleep 2
 
+wineboot --init
+
+wget -O /tmp/steamsetup.exe https://cdn.cloudflare.steamstatic.com/client/installer/SteamSetup.exe && \
+    wine /tmp/steamsetup.exe
+
+export WINEPREFIX=/wineprefix
+mkdir -p $WINEPREFIX && wineboot --init
+
+rm -f /tmp/steamsetup.exe
+
+winetricks -q steam
+
 echo "[INFO] Launching Steam..."
 wine "C:\\Program Files (x86)\\Steam\\steam.exe" &
 
