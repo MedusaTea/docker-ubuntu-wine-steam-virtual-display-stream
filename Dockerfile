@@ -1,7 +1,6 @@
 FROM nvidia/cuda:12.2.0-runtime-ubuntu20.04
 
 ENV DEBIAN_FRONTEND=noninteractive
-ENV WINEPREFIX=/wineprefix
 
 RUN apt update && apt install -y \
     software-properties-common \
@@ -11,7 +10,16 @@ RUN apt update && apt install -y \
     libgl1-mesa-glx libxcomposite1 libxrandr2 libxi6 libxcursor1 \
     && rm -rf /var/lib/apt/lists/*
 
-RUN mkdir -p /wineprefix && wineboot --init
+RUN wineboot --init
+
+RUN wget -O /tmp/steamsetup.exe https://cdn.cloudflare.steamstatic.com/client/installer/SteamSetup.exe && \
+    wine /tmp/steamsetup.exe
+
+ENV WINEPREFIX=/wineprefix
+RUN mkdir -p $WINEPREFIX && wineboot --init
+
+RUN rm -f /tmp/steamsetup.exe
+
 RUN winetricks -q steam
 
 COPY start.sh /start.sh
